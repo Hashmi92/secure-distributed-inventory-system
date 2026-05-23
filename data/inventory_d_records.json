@@ -1,0 +1,41 @@
+{
+    "node": "Inventory D",
+    "records": [
+        {
+            "item_id": "001",
+            "quantity": "32",
+            "price": "40",
+            "location": "D"
+        },
+        {
+            "item_id": "002",
+            "quantity": "20",
+            "price": "92",
+            "location": "C"
+        },
+        {
+            "item_id": "003",
+            "quantity": "22",
+            "price": "17",
+            "location": "B"
+        },
+        {
+            "item_id": "004",
+            "quantity": "12",
+            "price": "0",
+            "location": "A"
+        },
+        {
+            "item_id": "008",
+            "quantity": "20",
+            "price": "45",
+            "location": "D"
+        },
+        {
+            "item_id": "099",
+            "quantity": "50",
+            "price": "60",
+            "location": "A"
+        }
+    ]
+}
