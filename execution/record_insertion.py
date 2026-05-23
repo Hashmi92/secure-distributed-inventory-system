@@ -3,7 +3,8 @@ import json
 from pathlib import Path
 
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
 
 key_files = {
     "Inventory A": "inventory_a_keys.json",
@@ -21,8 +22,8 @@ record_files = {
 
 
 def load_json_file(file_name):
-    """load a json file from the same folder as this script."""
-    file_path = BASE_DIR / file_name
+    """load a json file from the data folder."""
+    file_path = DATA_DIR / file_name
 
     try:
         with open(file_path, "r", encoding="utf-8-sig") as file:
@@ -38,17 +39,19 @@ def load_json_file(file_name):
         print(f"problem file: {file_path}")
         print(f"error: {error}")
 
-        with open(file_path, "r", encoding="utf-8-sig") as file:
-            preview = file.read()[:300]
+        if file_path.exists():
+            with open(file_path, "r", encoding="utf-8-sig") as file:
+                preview = file.read()[:300]
 
-        print("\nfile content preview:")
-        print(repr(preview))
+            print("\nfile content preview:")
+            print(repr(preview))
+
         raise
 
 
 def save_json_file(file_name, data):
-    """save updated data back into a json file."""
-    file_path = BASE_DIR / file_name
+    """save updated data back into the data folder."""
+    file_path = DATA_DIR / file_name
 
     with open(file_path, "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4)
@@ -134,7 +137,7 @@ def generate_rsa_values(inventory_keys):
         print(f"d = e^-1 mod phi(n) = {d}")
 
         save_json_file(key_files[node_name], key_data)
-        print(f"updated key file saved: {key_files[node_name]}")
+        print(f"updated key file saved: data/{key_files[node_name]}")
 
 
 def get_record_from_user():
@@ -337,7 +340,7 @@ def store_record_in_all_nodes(record, inventory_databases):
         database_data["records"].append(record)
         save_json_file(record_files[node_name], database_data)
 
-        print(f"{node_name}: record stored in {record_files[node_name]}")
+        print(f"{node_name}: record stored in data/{record_files[node_name]}")
 
 
 def show_local_databases(inventory_databases):

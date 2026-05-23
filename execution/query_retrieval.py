@@ -3,7 +3,8 @@ import json
 from pathlib import Path
 
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
 
 record_files = {
     "Inventory A": "inventory_a_records.json",
@@ -24,16 +25,16 @@ procurement_file = "procurement_officer_keys.json"
 
 
 def load_json_file(file_name):
-    """load a json file from the same folder as this script."""
-    file_path = BASE_DIR / file_name
+    """load a json file from the data folder."""
+    file_path = DATA_DIR / file_name
 
     with open(file_path, "r", encoding="utf-8-sig") as file:
         return json.load(file)
 
 
 def save_json_file(file_name, data):
-    """save updated data back into a json file."""
-    file_path = BASE_DIR / file_name
+    """save updated data back into the data folder."""
+    file_path = DATA_DIR / file_name
 
     with open(file_path, "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4)
@@ -114,7 +115,7 @@ def initialise_parameters(pkg_keys, client_keys, inventory_params):
     print(f"n = p * q = {pkg_keys['n']}")
     print(f"phi(n) = (p - 1) * (q - 1) = {pkg_keys['phi']}")
     print(f"d = e^-1 mod phi(n) = {pkg_keys['d']}")
-    print(f"updated pkg file saved: {pkg_file}")
+    print(f"updated pkg file saved: data/{pkg_file}")
 
     print("\nquery client key values")
     print(f"p = {client_keys['p']}")
@@ -123,7 +124,7 @@ def initialise_parameters(pkg_keys, client_keys, inventory_params):
     print(f"n = p * q = {client_keys['n']}")
     print(f"phi(n) = (p - 1) * (q - 1) = {client_keys['phi']}")
     print(f"d = e^-1 mod phi(n) = {client_keys['d']}")
-    print(f"updated client key file saved: {procurement_file}")
+    print(f"updated client key file saved: data/{procurement_file}")
 
     print("\ninventory node harn parameters")
     for node_name, data in inventory_params.items():
